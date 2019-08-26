@@ -1,0 +1,124 @@
+IFrame: https://rawgit.com/devserpro/apis/master/_layouts/swagger-ui-master/dist/index.html?bearer=4e1a1858bdd584fdc077fb7d80f39283&url=https://rawgit.com/devserpro/apis/master/datavalid/degustacao/DocumentacaoPlanoNovo.json#!/3_M%C3%A9todos_com_Biometria/post_vbeta1_validate_pf_digitais
+
+Definição:
+
+    Datavalid => Serviço HTTP REST
+
+    Validações de dados em tempo real.
+
+    PF=> Inclui recurso biométrico 
+    (compara foto da face da pessoa 
+    com uma foto da face cadastrada 
+    em bases do governo)
+    PJ=> Sem recurso biométrico
+
+Atributos de Resposta:
+
+    Quando a requisição for processada e validada
+    com sucesso. Têm se o retorno dos seguintes
+    tipos de atributos:
+
+    Tipos:
+
+    Validação:  bool
+
+    Similaridade: 0 - > 1 indicando similaridade 
+    "entre dado a ser validado e o dado verdadeiro 
+    referente a chave enviada."
+
+Req. Para Envio de Imagens:
+
+    Resolução Mínima: 250x250 px
+    Encoding: JPG e PNG
+
+    PS: Resolução Mínima referente apenas à região da face, não
+    incluindo fundo branco (se houver).
+
+    Se requisito não atendido é retornado erro informando.
+
+
+Req. Para Envio de Digitais:
+
+    Resolução Mínima: 500 DPI, 640x600 px alturaxlargura
+    Encoding: WSQ e PNG
+
+    PS: Para PNG, o limite total da requisição não pode ultrapassar
+    3 MB, se não respeitada a observância, se retorna o erro:
+    413.
+
+Validando Dados PF:
+
+    (POST)/vbeta1/validate/pf
+
+    body: {
+        "key" : {"cpf": "valor"}
+        "answer": {
+            //dados a serem validados
+        }
+    }
+
+Validando Dados PJ:
+
+    (POST)/vbeta1/validate/pj
+
+    body similar ao pf (cpf -> cnpj)
+
+
+Biometria Facial:
+
+    (POST)/vbeta1/validate/pf-face
+
+    "answer" recebe uma string em Base64.
+
+    body: {
+        "key": {"cpf": "valor"},
+        "answer": {
+            "biometria_face":"base64-string"
+        }
+    }
+
+Biometria Digital:
+
+    0-> polegar D
+    5-> polegar E
+
+    (POST)/vbeta1/validate/pf-digitais
+
+    body:
+    {
+        "key": {
+            "cpf": ""
+        },
+
+        "answer": {
+            "digitais": [
+                {
+                    "posicao": 1,
+                    "formato": "WSQ",
+                    "imagem": "base64"
+                }
+            ]
+        }
+    }
+
+
+Biometria Digital+Facial:
+
+    (POST)/vbeta1/validate/pf-imagem
+
+    body:
+    {
+        "key": {
+            "cpf": ""
+        },
+        "answer": {
+            "digitais": [{},{}],
+            "biometria_face": "base64"
+        }
+    }
+
+
+
+Precificação:
+
+Link=>https://servicos.serpro.gov.br/datavalid/#modelo-pagamento
