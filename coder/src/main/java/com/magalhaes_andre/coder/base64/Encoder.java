@@ -13,17 +13,21 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 public class Encoder {
 	private File image;
 	
-	public Encoder(String imagePath) {
+	public Encoder(String imageFileName) {
 		try {
-			this.image = new File("/home/ilegra0478/projects/serpro-datavalid-poc/images/"+imagePath);
+			this.image = new File("/home/ilegra0478/projects/serpro-datavalid-poc/images/"+imageFileName);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
 	}
 	
-	public String encode() throws Exception{
-		byte[] imageBytes = FileUtils.readFileToByteArray(image);
-		return Base64.getEncoder().encodeToString(imageBytes); 
+	public String encode() {
+		try {
+			byte[] imageBytes = FileUtils.readFileToByteArray(image);
+			return Base64.getEncoder().encodeToString(imageBytes); 
+		}catch(Exception e) {
+			return e.getMessage();
+		}
 	}
 }
