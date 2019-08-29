@@ -4,7 +4,7 @@ This repository stores a personal testing and proof of concept over [_Serpro's D
 
 In requests/ are stored insomnia's requests for the datavalid api.
 
-In coder/ is stored a simple springboot project ___Not yet finished___ for encoding and decoding jpeg <-> base64.
+In coder/ is stored a simple springboot project ___not yet finished___ for encoding and decoding jpeg <-> base64.
 
 ### Still Lacking:
 Proper modeling of the requests to be sent and how to deal with it.
